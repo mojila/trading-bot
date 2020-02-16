@@ -1,7 +1,17 @@
 const moment = require('moment')
 const axios = require('axios')
 
-const get_today_market = async () => {
+const get_stocklist_indopremier = async () => {
+    let results = []
+
+    await axios.get(`https://www.indopremier.com/programer_script/source_json_fund.php?type=stocklist`)
+        .then(res => results = res.data)
+        .catch(err => console.error(err))
+
+    return results
+}
+
+const get_today_market_idx = async () => {
     let results = []
     let now_timestamp = moment().format('x')
 
@@ -13,5 +23,6 @@ const get_today_market = async () => {
 }
 
 module.exports = {
-    get_today_market
+    get_today_market_idx,
+    get_stocklist_indopremier
 }
